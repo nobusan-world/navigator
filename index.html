@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NOBUSAN NAVIGATOR｜状況整理から、次の一歩へ</title>
+
+<meta name="description" content="NOBUSAN NAVIGATORは、起業・人生承継・経営課題を整理し、あなたに合う次の一歩をご案内するデジタル営業秘書です。">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#5d4528">
+<link rel="canonical" href="https://nobusan-world.github.io/navigator/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="NOBUSAN NAVIGATOR">
+<meta property="og:description" content="今の悩みを相談できる状態に整理し、あなたに合う次の一歩をご案内します。">
+<meta property="og:url" content="https://nobusan-world.github.io/navigator/">
+<meta property="og:site_name" content="NOBUSAN WORLD">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%235d4528'/%3E%3Cpath d='M15 47V17h8l18 20V17h8v30h-8L23 27v20z' fill='white'/%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#f3f0e8;--paper:#fff;--ink:#24211d;--muted:#706a61;--line:#d9d1c3;
+  --gold:#8a6940;--gold-dark:#5d4528;--soft:#ede4d6;--deep:#25231f;
+  --shadow:0 20px 65px rgba(50,42,30,.12)
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;font-family:"Yu Gothic","Hiragino Kaku Gothic ProN","Meiryo",sans-serif;
+  color:var(--ink);background:
+  radial-gradient(circle at top right,rgba(138,105,64,.13),transparent 33%),
+  linear-gradient(180deg,#f8f6f0 0%,var(--bg) 100%);line-height:1.75
+}
+.wrapper{width:min(960px,calc(100% - 28px));margin:34px auto}
+.panel{
+  display:none;background:rgba(255,255,255,.96);border:1px solid rgba(138,105,64,.18);
+  border-radius:28px;box-shadow:var(--shadow);padding:46px
+}
+.panel.active{display:block}
+.kicker{font-size:.76rem;font-weight:800;letter-spacing:.22em;color:var(--gold);text-transform:uppercase}
+h1{font-size:clamp(2rem,6vw,4.3rem);line-height:1.08;margin:.25em 0}
+h2{font-size:clamp(1.5rem,4vw,2.5rem);line-height:1.4}
+h3{font-size:1.28rem;margin:.2em 0}
+p{margin:.6em 0}
+.lead{font-size:clamp(1.05rem,2.4vw,1.35rem);color:var(--muted)}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;background:var(--soft);color:var(--gold-dark);
+  padding:8px 14px;border-radius:999px;font-size:.82rem;font-weight:700
+}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:30px 0}
+.mini-card{border:1px solid var(--line);border-radius:18px;padding:19px;background:#fff}
+.mini-card b{display:block;margin-bottom:5px}.mini-card span{font-size:.76rem;color:var(--gold);font-weight:800}
+.mini-card p{font-size:.88rem;color:var(--muted);margin:0}
+.notice{padding:18px 20px;background:var(--soft);border-radius:16px;margin:26px 0}
+.notice p{font-size:.88rem;color:var(--muted);margin:3px 0 0}
+button,.button-link{
+  border:0;border-radius:999px;padding:15px 26px;font:inherit;font-weight:800;cursor:pointer;
+  transition:transform .16s ease,opacity .16s ease,background .16s ease;text-decoration:none
+}
+button:hover,.button-link:hover{transform:translateY(-1px)}
+.primary{background:var(--gold-dark);color:#fff;width:100%}
+.secondary{background:var(--soft);color:var(--gold-dark)}
+.ghost{background:transparent;color:var(--muted);border:1px solid var(--line)}
+.small{font-size:.78rem;color:var(--muted)}
+.center{text-align:center}
+.route-grid{display:grid;gap:14px;margin-top:26px}
+.route-btn{
+  display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:16px;text-align:left;
+  border:1px solid var(--line);background:#fff;border-radius:20px;padding:20px
+}
+.route-btn:hover{background:var(--soft);border-color:var(--gold)}
+.route-icon{width:45px;height:45px;border-radius:14px;background:var(--soft);display:grid;place-items:center;font-size:1.3rem}
+.route-copy strong{display:block;font-size:1.05rem}
+.route-copy span{color:var(--muted);font-size:.86rem}
+.arrow{color:var(--gold);font-size:1.2rem}
+.progress-head{display:flex;justify-content:space-between;gap:12px;color:var(--muted);font-size:.82rem}
+.progress{height:8px;background:#ebe7df;border-radius:999px;overflow:hidden;margin-top:8px}
+.progress>div{height:100%;background:var(--gold);width:10%;transition:width .25s ease}
+.question-wrap{padding:26px 0 8px}
+.q-label{color:var(--gold);font-weight:800;letter-spacing:.12em;font-size:.75rem}
+.option-list{display:grid;gap:12px;margin-top:24px}
+.option{
+  text-align:left;border:1px solid var(--line);background:#fff;color:var(--ink);
+  border-radius:17px;padding:17px 20px;font-weight:650
+}
+.option:hover{background:var(--soft);border-color:var(--gold)}
+.nav{display:flex;justify-content:space-between;gap:12px;margin-top:24px}
+.result-head{text-align:center;margin-bottom:28px}
+.result-head p{color:var(--muted)}
+.result-card{border:1px solid var(--line);border-radius:20px;padding:25px;margin:15px 0;background:#fff}
+.result-card.main{background:linear-gradient(135deg,#fff,var(--soft));border-color:rgba(138,105,64,.38)}
+.label{color:var(--gold);font-size:.76rem;font-weight:800;letter-spacing:.12em;margin:0 0 7px}
+.big-result{font-size:clamp(1.7rem,4.2vw,2.7rem);line-height:1.25;margin:.2em 0}
+.summary{font-size:1.04rem;color:var(--muted)}
+.check-list,.todo-list{padding-left:1.3em}.check-list li,.todo-list li{margin:8px 0}
+.metric-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:15px}
+.metric{background:#faf8f3;border:1px solid var(--line);border-radius:15px;padding:16px;text-align:center}
+.metric strong{display:block;font-size:1.3rem;color:var(--gold-dark)}
+.metric span{font-size:.75rem;color:var(--muted)}
+.score-row{margin:15px 0}.score-meta{display:flex;justify-content:space-between;font-size:.88rem;margin-bottom:5px}
+.score-track{height:9px;background:#eee9df;border-radius:999px;overflow:hidden}
+.score-fill{height:100%;background:var(--gold);border-radius:999px}
+.cta{background:var(--deep);color:#fff;border-radius:22px;padding:30px;text-align:center;margin:28px 0}
+.cta p{color:rgba(255,255,255,.76)}
+.cta .button-link{display:inline-block;background:#fff;color:var(--deep);min-width:260px}
+.actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+footer{text-align:center;color:var(--muted);font-size:.74rem;padding:8px 0 28px}
+@media(max-width:720px){
+  .wrapper{width:min(100% - 16px,960px);margin:10px auto}.panel{padding:27px 19px;border-radius:21px}
+  .grid3,.metric-grid{grid-template-columns:1fr}.route-btn{grid-template-columns:auto 1fr}.arrow{display:none}
+  .cta .button-link{width:100%;min-width:0}
+}
+@media print{
+  body{background:#fff}.wrapper{width:100%;margin:0}.panel{box-shadow:none;border:0;padding:0}
+  #intro,#routeScreen,#questionScreen,footer,.actions,.cta,.print-hide{display:none!important}
+  #resultScreen{display:block!important}.result-card{break-inside:avoid}
+}
+
+.report-footer{
+  display:none;
+}
+.report-cover{
+  display:none;
+}
+.report-section-title{
+  display:none;
+}
+.print-brandline{
+  display:none;
+}
+@media print{
+  @page{size:A4;margin:16mm 15mm 18mm}
+  body{font-family:"Yu Gothic","Meiryo",sans-serif;color:#222;background:#fff}
+  #resultScreen{
+    display:block!important;
+    padding:0!important;
+  }
+  .result-head{
+    display:none!important;
+  }
+  .result-card,.score-card{
+    border:0!important;
+    border-radius:0!important;
+    box-shadow:none!important;
+    padding:0!important;
+    margin:0!important;
+    background:#fff!important;
+  }
+  .result-card.main{
+    background:#fff!important;
+  }
+  .report-cover{
+    display:block!important;
+    min-height:255mm;
+    position:relative;
+    page-break-after:always;
+    padding:12mm 5mm 0;
+  }
+  .report-cover .cover-kicker{
+    font-size:10pt;
+    letter-spacing:.25em;
+    color:#8a6940;
+    font-weight:700;
+  }
+  .report-cover h1{
+    margin:18mm 0 6mm;
+    font-size:28pt;
+    line-height:1.25;
+  }
+  .report-cover .cover-sub{
+    font-size:13pt;
+    color:#5f5a52;
+    line-height:1.8;
+  }
+  .report-cover .cover-box{
+    margin-top:22mm;
+    padding:10mm;
+    border:1px solid #d7cebf;
+    background:#f7f3ec;
+  }
+  .report-cover .cover-box p{
+    margin:0 0 3mm;
+  }
+  .report-cover .cover-bottom{
+    position:absolute;
+    left:5mm;right:5mm;bottom:0;
+    border-top:2px solid #8a6940;
+    padding-top:5mm;
+    display:flex;
+    justify-content:space-between;
+    gap:10mm;
+    font-size:9pt;
+    color:#625c54;
+  }
+  .report-section{
+    page-break-after:always;
+    min-height:248mm;
+    position:relative;
+    padding-bottom:28mm;
+  }
+  .report-section:last-of-type{
+    page-break-after:auto;
+  }
+  .report-section-title{
+    display:block!important;
+    font-size:17pt;
+    font-weight:700;
+    margin:0 0 8mm;
+    padding-bottom:4mm;
+    border-bottom:2px solid #8a6940;
+  }
+  .label{
+    margin-top:7mm!important;
+    font-size:9pt!important;
+  }
+  .big-result{
+    font-size:22pt!important;
+    margin:2mm 0 4mm!important;
+  }
+  .summary{
+    font-size:11pt!important;
+  }
+  .metric-grid{
+    grid-template-columns:repeat(3,1fr)!important;
+    gap:4mm!important;
+  }
+  .metric{
+    padding:5mm!important;
+    border:1px solid #d7cebf!important;
+    background:#faf8f3!important;
+  }
+  .metric strong{font-size:18pt!important}
+  .metric span{font-size:8.5pt!important}
+  .check-list li,.todo-list li{
+    margin:3mm 0!important;
+    font-size:10pt!important;
+  }
+  .report-footer{
+    display:block!important;
+    position:absolute;
+    left:0;right:0;bottom:0;
+    border-top:1px solid #cfc5b5;
+    padding-top:4mm;
+    font-size:8pt;
+    color:#5d574f;
+  }
+  .report-footer .footer-top{
+    display:flex;
+    justify-content:space-between;
+    gap:8mm;
+  }
+  .report-footer .footer-brand{
+    font-weight:700;
+    color:#3b352e;
+  }
+  .report-footer .footer-sites{
+    text-align:right;
+  }
+  .report-footer .footer-note{
+    margin-top:3mm;
+    padding-top:3mm;
+    border-top:1px solid #e2dbcf;
+    font-size:7.5pt;
+    line-height:1.5;
+  }
+  .print-brandline{
+    display:block!important;
+    margin-top:10mm;
+    padding:5mm 0;
+    border-top:2px solid #8a6940;
+    border-bottom:1px solid #d7cebf;
+    font-weight:700;
+    letter-spacing:.08em;
+    color:#5d4528;
+  }
+  #comparisonCard{
+    margin-top:8mm!important;
+  }
+}
+
+
+.qr-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px;
+  margin-top:18px;
+}
+.qr-card{
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:16px;
+  display:grid;
+  grid-template-columns:86px 1fr;
+  gap:14px;
+  align-items:center;
+  background:#fff;
+}
+.qr-card img{
+  width:86px;
+  height:86px;
+  display:block;
+}
+.qr-card strong{
+  display:block;
+  margin-bottom:4px;
+}
+.qr-card span{
+  color:var(--muted);
+  font-size:.76rem;
+  word-break:break-all;
+}
+.version-mark{
+  position:fixed;
+  right:14px;
+  bottom:10px;
+  font-size:.66rem;
+  color:rgba(80,70,58,.42);
+  pointer-events:none;
+}
+@media(max-width:720px){
+  .qr-grid{grid-template-columns:1fr}
+}
+@media print{
+  .qr-grid{
+    grid-template-columns:repeat(2,1fr)!important;
+    gap:5mm!important;
+  }
+  .qr-card{
+    border:1px solid #d7cebf!important;
+    border-radius:0!important;
+    padding:4mm!important;
+    grid-template-columns:25mm 1fr!important;
+    gap:4mm!important;
+    break-inside:avoid;
+  }
+  .qr-card img{
+    width:25mm!important;
+    height:25mm!important;
+  }
+  .qr-card strong{font-size:9pt!important}
+  .qr-card span{font-size:7pt!important}
+  .version-mark{display:none!important}
+}
+
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+<section id="intro" class="panel active">
+  <span class="hero-badge">NOBUSANのデジタル営業秘書</span>
+  <div class="kicker" style="margin-top:22px">NOBUSAN WORLD</div>
+  <h1>NOBUSAN<br>NAVIGATOR</h1>
+  <p class="lead">今の悩みを「相談できる状態」に整理し、<br>あなたに合う次の一歩をご案内します。</p>
+  <div class="grid3">
+    <div class="mini-card"><span>STEP 01</span><b>相談テーマを確認</b><p>まず入口を選びます。分からなくても大丈夫です。</p></div>
+    <div class="mini-card"><span>STEP 02</span><b>専用ヒアリング</b><p>選んだテーマだけを深掘りします。</p></div>
+    <div class="mini-card"><span>STEP 03</span><b>整理シートを生成</b><p>現在地と次の行動をレポートにします。</p></div>
+  </div>
+  <div class="notice"><b>個人情報は入力しません。</b><p>回答内容はこの端末内だけで処理され、外部サーバーには保存されません。</p></div>
+  <button id="startBtn" class="primary">無料ナビを始める</button>
+  <p class="small center">所要時間：約3〜5分｜Version 1.0</p>
+</section>
+
+<section id="routeScreen" class="panel">
+  <div class="kicker">FIRST QUESTION</div>
+  <h2>今、最も整理したいテーマは<br>どれですか？</h2>
+  <p class="lead">選択したテーマに合わせて、質問内容が変わります。</p>
+  <div class="route-grid">
+    <button class="route-btn" data-route="startup">
+      <span class="route-icon">🚀</span><span class="route-copy"><strong>起業・独立・新規事業</strong><span>商品、価格、発信、サイト、集客、行動計画</span></span><span class="arrow">→</span>
+    </button>
+    <button class="route-btn" data-route="life">
+      <span class="route-icon">🏠</span><span class="route-copy"><strong>人生・家族・相続・承継</strong><span>親、実家、資産、不動産、相続、家族会議</span></span><span class="arrow">→</span>
+    </button>
+    <button class="route-btn" data-route="office">
+      <span class="route-icon">🧭</span><span class="route-copy"><strong>会社経営・意思決定・組織</strong><span>壁打ち、関係者調整、工程管理、継続伴走</span></span><span class="arrow">→</span>
+    </button>
+    <button class="route-btn" data-route="unknown">
+      <span class="route-icon">💭</span><span class="route-copy"><strong>まだ自分でも整理できない</strong><span>いくつかの共通質問から入口を自動判定します</span></span><span class="arrow">→</span>
+    </button>
+  </div>
+  <div class="nav"><button id="routeBack" class="ghost">戻る</button></div>
+</section>
+
+<section id="questionScreen" class="panel">
+  <div class="progress-head"><span id="progressText"></span><span id="routeName"></span></div>
+  <div class="progress"><div id="progressFill"></div></div>
+  <div class="question-wrap">
+    <div id="questionLabel" class="q-label"></div>
+    <h2 id="questionText"></h2>
+    <div id="optionList" class="option-list"></div>
+  </div>
+  <div class="nav"><button id="questionBack" class="ghost">戻る</button></div>
+</section>
+
+<section id="resultScreen" class="panel">
+
+  <div class="report-cover">
+    <div class="cover-kicker">NOBUSAN NAVIGATOR</div>
+    <h1>あなた専用の<br>状況整理レポート</h1>
+    <p class="cover-sub">
+      回答内容をもとに、現在地・優先課題・次の一歩を整理しました。<br>
+      このレポートは、相談を始めるための「入口資料」です。
+    </p>
+    <div class="cover-box">
+      <p><strong>推奨する相談入口</strong></p>
+      <p id="coverResultTitle" style="font-size:18pt;font-weight:700;color:#5d4528"></p>
+      <p id="coverResultSummary"></p>
+    </div>
+    <div class="cover-bottom">
+      <div>
+        <strong>Generated by NOBUSAN NAVIGATOR</strong><br>
+        Version 1.0
+      </div>
+      <div style="text-align:right">
+        行政書士NOBUSAN法務事務所<br>
+        株式会社NOBUSAN（総合監修）
+      </div>
+    </div>
+  </div>
+
+  <div class="result-head">
+    <div class="kicker">YOUR PERSONAL REPORT</div>
+    <h1>あなたの整理シート</h1>
+    <p id="reportDate"></p>
+  </div>
+
+  <div class="report-section">
+  <div class="report-section-title">01｜あなたの現在地</div>
+
+  <div class="result-card main">
+    <p class="label">おすすめの相談入口</p>
+    <h2 id="resultTitle" class="big-result"></h2>
+    <p id="resultSummary" class="summary"></p>
+  </div>
+
+  <div class="result-card">
+    <p class="label">現在地</p>
+    <h3 id="stageTitle"></h3>
+    <p id="stageText"></p>
+    <div id="metrics" class="metric-grid"></div>
+  </div>
+
+  <div class="report-footer">
+    <div class="footer-top">
+      <div class="footer-brand">NOBUSAN NAVIGATOR｜状況整理から、次の一歩へ。</div>
+      <div class="footer-sites">nobusan.jp</div>
+    </div>
+  </div>
+  </div>
+
+  <div class="report-section">
+  <div class="report-section-title">02｜NOBUSANからの提案</div>
+
+  <div class="result-card">
+    <p class="label">今回の回答から見えたこと</p>
+    <ul id="insightList" class="check-list"></ul>
+  </div>
+
+  <div class="result-card">
+    <p class="label">次に行う3つのこと</p>
+    <ol id="todoList" class="todo-list"></ol>
+  </div>
+
+  <div class="result-card">
+    <p class="label">今は急いで決めなくてもよいこと</p>
+    <p id="notNow"></p>
+  </div>
+
+  <div class="report-footer">
+    <div class="footer-top">
+      <div class="footer-brand">NOBUSAN NAVIGATOR｜状況整理から、次の一歩へ。</div>
+      <div class="footer-sites">legal.nobusan.jp ｜ project.nobusan.jp</div>
+    </div>
+  </div>
+  </div>
+
+  <div class="report-section">
+  <div class="report-section-title">03｜ご相談について</div>
+
+  <div id="comparisonCard" class="result-card">
+    <p class="label">3つの相談入口との適合度</p>
+    <div id="scoreBars"></div>
+  </div>
+
+
+  <div class="result-card">
+    <p class="label">作成・提供</p>
+    <h3>行政書士NOBUSAN法務事務所</h3>
+    <p>人生・家族・相続・承継に関する状況整理と法務支援</p>
+    <h3 style="margin-top:7mm">株式会社NOBUSAN（総合監修）</h3>
+    <p>経営・人生・資産・不動産・事業を横断する全体設計と総合監修</p>
+
+    <div class="print-brandline">NOBUSAN WORLD｜Thinking. Planning. Supporting.</div>
+
+    <p style="margin-top:7mm"><strong>Web</strong></p>
+    <p>NOBUSAN WORLD　https://nobusan.jp/</p>
+    <p>行政書士NOBUSAN法務事務所　https://legal.nobusan.jp/</p>
+    <p>総合監修NOBUSAN　https://project.nobusan.jp/</p>
+  </div>
+
+
+  <div class="result-card">
+    <p class="label">Web・QRコード</p>
+    <div class="qr-grid">
+      <div class="qr-card">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOcAAADnAQAAAADNj3yNAAAB5klEQVR4nO2ZQY6jMBRE34eFszM3gJuQm+G+GbkJ3MDsiGSoWZieZDPdmmg0wVL/DZJrU1/1XdQHE38uVV+A8IP+HxQlAEySFEwrrQ7dhv2cnL9FnSSxmdkVtoufjv7GE3P+Bl3MArgIg5zibIHNrHszq3+A+ulm+2bNuVi9jtZLA4Mllq4Pp2H1AoqSkyTT6iVJiq2U71GxznA3M2Pzc3cL1XaBW5Blnzgt569KRyW8JHDSOBxnhWq0XfLTzd3N4N7QW8W9WI0q6sXs+rG5paHXXivOVzbz8b2sXkd/Z4ZEDgtOUtjza7fIqUNaaRX2Wpr67HUjgC+3o4SXwqHRnp2hZPdGWn0WRxPsAAzgNBWaVJFWYLDkpBFqxVYhj2KxU+c0wV7nHmpFwJKLbbFTl6AdMa15jVi9xqF8jbLJPS7QsVsU2VEFd+s/gpk17ZgjeB+kpS1140PJRfqc68ZhPzSqy811n85gCa8xezmUPHWP7O0ifQAX23E4kniRHVVsZmZW1Us7Adyb+UoFS/dWVq+jTzvskVQjDEqu4BSUXITBJE19sORiPvdTX+bUPTpavaQj10krpWaGJ3Tpbgb4qTezC/MQzsDqr9Hnb0FT/2l5JWv02GFd/Ix3eTkvNdfZz9+W06O/AHeRjY7e3p11AAAAAElFTkSuQmCC" alt="NOBUSAN NAVIGATOR QRコード">
+        <div><strong>NOBUSAN NAVIGATOR</strong><span>https://nobusan-world.github.io/navigator/</span></div>
+      </div>
+      <div class="qr-card">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMsAAADLAQAAAADogFqeAAABjUlEQVR4nO2YQW6DMBREZwDJ7MwNyE2cmwE3MzeBG9g7kDDTRZJGXZCqVaVgqX9jobd5gvn2NxQOai6OCPCP/gIlkmSRagCDWEeSZH0iw+PSZiSJUmg9KIVW0mY0ncTwGxTJHgDma7enGhhZnMzwO5TYtH54u8YvkQlwYvVujZ+gz8zfFuWW+ZUkAcTL2BepxkyyOpXhMSolSTvWdrwC5WIlScuJDF+gVANjzwrRiapu3yFlss9rsZO7pRwdSkkee6k8Mp/s7PxAs0QnItXxApTbmQxfIjuN0sp2AqQF87VTNg0bGzjSKMzsVa0NXC6ZL5BsmCmtbFr1RbLSoL3MYreBpAB01GIl7eViJ4DKpGFvlVjfD6l4QS6ZhzYAADcAruf9KZc3/zhhTWgH7TCS7/ZTGb5A95sUYMfrUADxcjbD43repDS5XpuRPJjHVAltJgAdNxNa/+yALOQ/URkbuJ4VAKdMdpuvqNthQuuHbA6pZ+blO0qaAOQyVeIxwUd2VLXSSZnMNvz/3fcm9AFeDQb5YiSQKAAAAABJRU5ErkJggg==" alt="NOBUSAN WORLD QRコード">
+        <div><strong>NOBUSAN WORLD</strong><span>https://nobusan.jp/</span></div>
+      </div>
+      <div class="qr-card">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMsAAADLAQAAAADogFqeAAABk0lEQVR4nO2YTY6cMBCFvwIiI2VB38B9EzInyVHovpnnJu5ldrCjJeOXBfRkNkx+FKmxNLUx8tt8SM/lVzaxU7dqT4FP6X9Ii5mZVTCdQQ2TmZm1ByL8SHKSxGInuFaAl5QORbhbSm6EwTR3sVfGjT5gySkehPCPJDcCVT0/GeNvpObxsXz90Ufyl+dg/LttJMkkKQwZN3pJxdjmbmbG0k5nqBPczKw5FOG+VEuScj2dboMBnSRpPhDhfim50YfBpBHIOCkMuVYJtmmop9bDYm6O318sNeZjz72dj0L4uwMbGSwBvSyBDwOUcmCB3jLgrwZOEXJdhOcr6unkr6qge/3G0tzt3BtLMdlmhGtmTQkJACso2/gwWHKKoNX6hXgeaYb+ouSk8PiVQlrlhssWzB6bKgR+q+S0RmIpkMuwzdskVU/WhyvrQHUswv36lSpHH7Z4UI5t0vseqW0pA/5Nqme8JCfFbfdohB9IS9vFV6sAH4Zcxg37fpKK/SVDp0A5fR4AS3TSJQOsHbMAePt87nuS9BOttgdL1VG+DwAAAABJRU5ErkJggg==" alt="行政書士NOBUSAN法務事務所 QRコード">
+        <div><strong>行政書士NOBUSAN法務事務所</strong><span>https://legal.nobusan.jp/</span></div>
+      </div>
+      <div class="qr-card">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOcAAADnAQAAAADNj3yNAAAB70lEQVR4nO2ZQY6cMBRE34eJzM65gfsm7pvBnGzgJnADs4hkJJrKAhhNFulIkyjdluYvqU2Vvn/9sjHx+1J1B4Qv9P+gaAXAlAnqqJWCjr6123Nyvo++gMtAdWv8OGj7toQ0vNkGDG9PyvmPPXIJWlshSLa6FCRbIfTF9ugolydr5X40YXh7NKt/gtazXaIBTNfnYfVJ1EsdOI1gS+PVQy2ND2b1F+hiZsatmeOrwE0XkJnZ9Yk53ysdtTqpR1Iint+KdAa0Ound3aizV48pQyxVkTKhZ6uzl3RKwaWiFRFl50nLhL4t+dRV3LxGXjcWM+vMfIJXWL4/ltXnUaTsRzBlP8bOJI1R1JIKzQyHM3TSYQnSSLtvpzIVVbDYZVAFTG0na+Yo2+rZorrn5XwXrbMfWttuzXwBW2GyDlxiKFPRkb0xSepb6kw4LK9YrwOgvVnDdEVLw2Rm5tNkxfaIfR/tzrC63euyL9nrUujb3cRPkzuiUbmKiN2R646pApdKfWf4mL3H2OkUhi+1RxU3MzOr6tlij73ghysVzJeHsvo8+n6b2CO4lGGfo1Izw/tbkJRCzwZ+BMCPhd4mfkGjbHVT7NutzkWfugStnRFc6UQK7dHHOSJ2Wy1Jp+WVqgjYI2qQPm6nQt3bvv62PD36Ex1EhdywAsUSAAAAAElFTkSuQmCC" alt="総合監修NOBUSAN QRコード">
+        <div><strong>株式会社NOBUSAN｜総合監修</strong><span>https://project.nobusan.jp/</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta">
+    <h3 id="ctaTitle"></h3>
+    <p id="ctaText"></p>
+    <a id="siteLink" class="button-link" href="#" target="_blank" rel="noopener">専用サイトを見る</a>
+  </div>
+
+  <div class="report-footer">
+    <div class="footer-top">
+      <div class="footer-brand">NOBUSAN WORLD｜Generated by NOBUSAN NAVIGATOR Version 1.0</div>
+      <div class="footer-sites">行政書士NOBUSAN法務事務所／株式会社NOBUSAN</div>
+    </div>
+    <div class="footer-note">
+      本レポートは、NOBUSAN NAVIGATORへの回答内容をもとに、現在の状況整理と次の一歩を支援する目的で自動生成されたものです。
+      法律・税務・登記・建築その他の専門判断を行うものではありません。具体的な判断については、必要に応じて各専門家へご相談ください。
+    </div>
+  </div>
+  </div>
+
+  <div class="actions print-hide">
+    <button id="printBtn" class="secondary">整理シートをPDF保存</button>
+    <button id="restartBtn" class="ghost">最初からやり直す</button>
+  </div>
+  <p class="small center print-hide">PDF保存は、印刷画面で「PDFに保存」を選択してください。</p>
+</section>
+
+</div>
+<footer>© NOBUSAN WORLD / NOBUSAN NAVIGATOR Version 1.0</footer>
+
+<script>
+const routeNames={
+  startup:"起業伴走ルート",life:"人生・承継ルート",office:"社外社長室ルート",unknown:"入口整理ルート"
+};
+
+const questionSets={
+startup:[
+ {q:"現在の段階に最も近いものは？",o:[
+  ["まだ起業前で、構想を整理している",3,["構想段階"],1],
+  ["起業準備を始めたが、商品や顧客像が曖昧",4,["商品設計"],2],
+  ["すでに起業したが、発信や集客が進まない",4,["集客停滞"],3],
+  ["事業の方向転換や再設計を考えている",3,["再設計"],3]]},
+ {q:"提供する商品・サービスは、どの程度決まっていますか？",o:[
+  ["まだ決まっていない",4,["商品未確定"],1],["大枠だけ決まっている",3,["商品仮説"],2],
+  ["内容は決まったが、価格や見せ方が未確定",3,["価格・表現"],3],["公開済みで、改善したい",2,["改善段階"],4]]},
+ {q:"誰に提供するかは明確ですか？",o:[
+  ["ほとんど決まっていない",4,["顧客像未確定"],1],["何となくイメージしている",3,["顧客像仮説"],2],
+  ["対象は決まっているが、言葉にできない",3,["言語化不足"],3],["具体的に定義できている",1,["顧客像明確"],4]]},
+ {q:"名刺・サイト・SNSなどの発信基盤は？",o:[
+  ["まだ何もない",4,["発信基盤なし"],1],["一部だけ準備している",3,["発信準備中"],2],
+  ["揃っているが、内容が連動していない",3,["導線分断"],3],["連動して公開できている",1,["発信基盤あり"],4]]},
+ {q:"今、一番止まっている理由は？",o:[
+  ["何から始めるか決められない",4,["入口不明"],1],["一人では判断が進まない",4,["伴走必要"],2],
+  ["作業時間や実行力が不足している",3,["実行停滞"],3],["集客の反応がなく、改善点が分からない",3,["市場検証"],4]]},
+ {q:"どのような支援が合いそうですか？",o:[
+  ["一度、考えを整理したい",2,["思考整理"],1],["商品設計から一緒に進めたい",4,["設計伴走"],2],
+  ["サイトや発信まで形にしたい",4,["制作伴走"],3],["公開後も行動管理してほしい",4,["継続伴走"],4]]},
+ {q:"いつ頃までに動き始めたいですか？",o:[
+  ["すぐに始めたい",4,["緊急度高"],4],["1〜3か月以内",3,["緊急度中"],3],
+  ["半年以内",2,["緊急度低"],2],["まだ情報収集段階",1,["検討段階"],1]]}
+],
+life:[
+ {q:"主に誰の将来について整理したいですか？",o:[
+  ["自分自身",3,["本人設計"],2],["親",4,["親世代"],3],["夫婦・家族全体",4,["家族全体"],3],["複数世代にまたがる",4,["多世代"],4]]},
+ {q:"現在、最も気になるテーマは？",o:[
+  ["親の認知症や将来",4,["認知症・将来"],3],["実家・土地・建物",4,["実家・不動産"],3],
+  ["相続・遺言・財産の分け方",4,["相続・遺言"],4],["家族・資産・事業が複雑に絡んでいる",5,["複合承継"],4]]},
+ {q:"家族で必要な話し合いはできていますか？",o:[
+  ["まだ話していない",4,["家族会議未着手"],1],["話題に出るが、結論が出ない",4,["合意形成停滞"],2],
+  ["一部の家族だけで話している",3,["情報共有不足"],2],["ある程度共有できている",1,["家族共有あり"],4]]},
+ {q:"資産や不動産の全体像は把握できていますか？",o:[
+  ["ほとんど把握できていない",4,["資産未整理"],1],["一部だけ分かっている",3,["資産把握途中"],2],
+  ["概ね把握しているが整理資料がない",2,["資料化不足"],3],["一覧化できている",1,["資産整理済"],4]]},
+ {q:"事業・会社・自社株なども関係しますか？",o:[
+  ["大きく関係する",5,["事業承継"],4],["少し関係する",3,["事業関連"],3],
+  ["関係しない",1,["個人承継"],2],["まだ分からない",3,["事業確認必要"],1]]},
+ {q:"すでに専門家へ相談していますか？",o:[
+  ["まだ誰にも相談していない",3,["専門家未相談"],1],["一人の専門家に相談中",2,["個別相談中"],2],
+  ["複数の専門家が関わっている",4,["専門家調整"],4],["相談したが全体像が見えない",4,["全体設計不足"],3]]},
+ {q:"いつ頃までに整理を始めたいですか？",o:[
+  ["すぐに始めたい",4,["緊急度高"],4],["1〜3か月以内",3,["緊急度中"],3],
+  ["半年以内",2,["緊急度低"],2],["まだ情報収集段階",1,["検討段階"],1]]}
+],
+office:[
+ {q:"経営者として、今もっとも必要なものは？",o:[
+  ["考えを整理する壁打ち相手",4,["壁打ち"],2],["意思決定を支える第三者",5,["意思決定支援"],4],
+  ["社内外の関係者をつなぐ調整役",5,["関係者調整"],4],["計画を実行へ移す進行役",5,["工程管理"],4]]},
+ {q:"課題はいくつの領域にまたがっていますか？",o:[
+  ["一つのテーマに絞られている",1,["単一課題"],1],["2〜3の課題が関連している",3,["複数課題"],2],
+  ["経営・家族・資産などが複雑に絡む",5,["複合経営課題"],4],["整理できないほど多い",5,["全体整理必要"],4]]},
+ {q:"社内に、本音で相談できる相手はいますか？",o:[
+  ["十分にいる",1,["社内相談可能"],1],["一部いるが、立場上話しにくい",3,["相談制約"],2],
+  ["ほとんどいない",4,["孤独な意思決定"],4],["専門家はいるが、全体を相談できない",5,["全体相談不足"],4]]},
+ {q:"複数の専門家や外部会社が関係していますか？",o:[
+  ["関係していない",1,["外部連携少"],1],["1〜2社・専門家が関係",2,["外部連携"],2],
+  ["複数が関係し、調整が必要",5,["専門家調整"],4],["役割分担自体が曖昧",5,["役割不明"],4]]},
+ {q:"計画や案件は、予定どおり進んでいますか？",o:[
+  ["概ね順調",1,["進行順調"],1],["一部遅れている",3,["部分停滞"],2],
+  ["意思決定が遅れて止まっている",5,["意思決定停滞"],4],["誰が何をするか曖昧で進まない",5,["工程不明"],4]]},
+ {q:"求める支援期間は？",o:[
+  ["単発で整理したい",2,["単発整理"],1],["1〜3か月程度",3,["短期伴走"],2],
+  ["半年程度",4,["中期伴走"],3],["継続的に相談したい",5,["継続支援"],4]]},
+ {q:"いつ頃から支援が必要ですか？",o:[
+  ["すぐ必要",4,["緊急度高"],4],["1か月以内",3,["緊急度中"],3],
+  ["3か月以内",2,["緊急度低"],2],["まだ検討段階",1,["検討段階"],1]]}
+],
+unknown:[
+ {q:"悩みの中心に最も近いものは？",o:[
+  ["これから始める仕事や事業",0,["起業テーマ"],1,{startup:4}],["親・家族・実家・相続",0,["人生承継テーマ"],1,{life:4}],
+  ["会社経営や意思決定",0,["経営テーマ"],1,{office:4}],["複数が絡んでいる",0,["複合テーマ"],1,{startup:2,life:2,office:2}]]},
+ {q:"今、一番困っている状態は？",o:[
+  ["何から始めるか分からない",0,["入口不明"],1,{startup:3,life:3,office:1}],
+  ["家族や関係者との合意が難しい",0,["合意形成"],2,{life:4,office:3}],
+  ["選択肢が多く、決められない",0,["選択肢過多"],2,{startup:2,life:3,office:4}],
+  ["実行する人や工程が整理できない",0,["工程不明"],3,{startup:2,life:2,office:4}]]},
+ {q:"課題に関係する人は？",o:[
+  ["主に自分一人",0,["本人中心"],1,{startup:3,life:1,office:2}],["家族・親族",0,["家族関係"],2,{life:4,office:1}],
+  ["会社・社員・取引先",0,["会社関係"],3,{office:4,startup:2}],["専門家を含む複数関係者",0,["複数関係者"],4,{life:3,office:4}]]},
+ {q:"必要だと感じる支援は？",o:[
+  ["まず話をして整理したい",0,["思考整理"],1,{startup:2,life:2,office:2}],
+  ["計画を一緒に作りたい",0,["全体設計"],2,{startup:3,life:3,office:3}],
+  ["専門家や関係者を調整してほしい",0,["関係者調整"],3,{life:3,office:4}],
+  ["継続的に意思決定を支えてほしい",0,["継続支援"],4,{office:5,startup:1,life:1}]]},
+ {q:"いつ頃から動きたいですか？",o:[
+  ["すぐに",0,["緊急度高"],4,{startup:2,life:2,office:2}],["1〜3か月以内",0,["緊急度中"],3,{startup:2,life:2,office:2}],
+  ["半年以内",0,["緊急度低"],2,{startup:1,life:1,office:1}],["まだ情報収集段階",0,["検討段階"],1,{startup:1,life:1,office:1}]]}
+]
+};
+
+const profiles={
+startup:{
+ title:"起業伴走プログラム",
+ summary:"あなたの経験や構想を、商品・発信・サイト・集客・行動計画へつなげる段階です。",
+ site:"https://nobusan.jp/",
+ ctaTitle:"起業を「考える状態」から「公開して動く状態」へ",
+ ctaText:"商品設計から名刺・サイト・発信・90日行動計画まで、起業初期を一緒に組み立てます。",
+ notNow:"最初から完璧な事業計画や大規模なサイトを作る必要はありません。まず、誰に何を届けるのかを固め、公開できる最小単位を作ることが先です。",
+ todos:["提供価値・顧客像・商品内容を一枚に整理する","名刺・サイト・SNSの役割と導線をつなぐ","公開後90日間の行動計画を設定する"]
+},
+life:{
+ title:"人生・承継プログラム",
+ summary:"人生・家族・資産・不動産・相続・事業承継を、一つの全体像として整理する段階です。",
+ site:"https://legal.nobusan.jp/",
+ ctaTitle:"手続きの前に、人生と承継の全体像を整理する",
+ ctaText:"家族・資産・不動産・事業を横断し、今決めることと将来検討することを分けて設計します。",
+ notNow:"遺言、売却、家族信託などの手段を最初から決める必要はありません。家族の希望と資産の全体像を確認してから、必要な手段を選ぶ方が安全です。",
+ todos:["家族・資産・不動産・事業の全体像を一覧化する","今すぐ決めることと将来検討することを分ける","家族会議・専門家相談・手続きの順序を決める"]
+},
+office:{
+ title:"社外社長室",
+ summary:"経営者の意思決定を支え、関係者調整と工程管理によって案件を前へ進める段階です。",
+ site:"https://project.nobusan.jp/",
+ ctaTitle:"経営者の頭の中を整理し、意思決定を実行へつなぐ",
+ ctaText:"社内では話しにくい課題を整理し、専門家・社員・取引先をつなぎながら継続的に伴走します。",
+ notNow:"すべてを経営者自身で解決する必要はありません。経営者が決めること、専門家へ任せること、社内で実行することを分けることが先です。",
+ todos:["複数の経営課題を一つの全体構造として整理する","経営者・社内・専門家の役割分担を決める","期限・担当・次回判断日を設定して進行を管理する"]
+}
+};
+
+let route="",current=0,answers=[],unknownScores={startup:0,life:0,office:0};
+
+const panels=[intro,routeScreen,questionScreen,resultScreen];
+function show(el){panels.forEach(x=>x.classList.remove("active"));el.classList.add("active");window.scrollTo(0,0)}
+function reset(){route="";current=0;answers=[];unknownScores={startup:0,life:0,office:0}}
+function startRoute(r){route=r;current=0;answers=[];unknownScores={startup:0,life:0,office:0};renderQuestion();show(questionScreen)}
+function renderQuestion(){
+ const set=questionSets[route],item=set[current];
+ progressText.textContent=(current+1)+" / "+set.length;
+ routeName.textContent=routeNames[route];
+ progressFill.style.width=((current+1)/set.length*100)+"%";
+ questionLabel.textContent="QUESTION "+String(current+1).padStart(2,"0");
+ questionText.textContent=item.q;optionList.innerHTML="";
+ item.o.forEach(opt=>{
+   const b=document.createElement("button");b.className="option";b.textContent=opt[0];
+   b.onclick=()=>{
+     answers[current]={text:opt[0],weight:opt[1],flags:opt[2],level:opt[3],scores:opt[4]||null};
+     answers=answers.slice(0,current+1);
+     if(route==="unknown"){unknownScores={startup:0,life:0,office:0};answers.forEach(a=>{if(a.scores)Object.keys(a.scores).forEach(k=>unknownScores[k]+=a.scores[k])})}
+     if(current<set.length-1){current++;renderQuestion()}else finish();
+   };optionList.appendChild(b)
+ });
+ questionBack.style.visibility=current===0?"visible":"visible";
+}
+function finish(){
+ let finalRoute=route;
+ if(route==="unknown"){
+   finalRoute=Object.keys(unknownScores).sort((a,b)=>unknownScores[b]-unknownScores[a])[0];
+ }
+ renderResult(finalRoute);
+ show(resultScreen);
+}
+function stageFor(finalRoute){
+ const avg=answers.reduce((s,a)=>s+(a.level||1),0)/answers.length;
+ if(finalRoute==="startup"){
+   if(avg<1.8)return["構想・初期整理段階","まだ答えを決めるより、経験・強み・顧客候補を言葉にする段階です。"];
+   if(avg<2.8)return["商品設計・準備段階","商品、顧客、価格、発信基盤を一つの導線として整える段階です。"];
+   if(avg<3.6)return["公開・実行段階","方向性は見えています。公開日と90日行動計画を決め、実行へ移す段階です。"];
+   return["市場検証・改善段階","すでに動き始めています。反応を見ながら商品と導線を改善する段階です。"];
+ }
+ if(finalRoute==="life"){
+   if(avg<1.8)return["気づき・情報整理段階","結論を急がず、家族・資産・不動産の現状を確認する段階です。"];
+   if(avg<2.8)return["家族共有・全体把握段階","家族間の情報共有と、資産・関係者の一覧化が必要な段階です。"];
+   if(avg<3.6)return["全体設計・選択肢整理段階","複数の選択肢を比較し、家族会議と専門家相談の順番を決める段階です。"];
+   return["実行・専門家連携段階","全体像をもとに、必要な手続きと専門家連携を進める段階です。"];
+ }
+ if(avg<1.8)return["経営課題の言語化段階","まず、経営者の頭の中にある論点を外に出し、優先順位を付ける段階です。"];
+ if(avg<2.8)return["意思決定・役割整理段階","経営者が決めることと、社内外へ任せることを分ける段階です。"];
+ if(avg<3.6)return["関係者調整・工程設計段階","専門家や社内関係者の役割、期限、判断日を整理する段階です。"];
+ return["継続伴走・総合監修段階","複数案件を継続的に俯瞰し、意思決定と進行を支える段階です。"];
+}
+function renderResult(finalRoute){
+ const p=profiles[finalRoute],stage=stageFor(finalRoute),flags=[...new Set(answers.flatMap(a=>a.flags||[]))];
+ resultTitle.textContent=p.title;resultSummary.textContent=p.summary;coverResultTitle.textContent=p.title;coverResultSummary.textContent=p.summary;
+ stageTitle.textContent=stage[0];stageText.textContent=stage[1];
+ reportDate.textContent=new Date().toLocaleDateString("ja-JP")+" 作成";
+ const complexity=Math.min(100,Math.round((answers.reduce((s,a)=>s+(a.weight||0),0)/(answers.length*5))*100));
+ const urgencyFlags=flags.find(x=>x.includes("緊急度"));
+ const urgency=urgencyFlags==="緊急度高"?90:urgencyFlags==="緊急度中"?65:urgencyFlags==="緊急度低"?40:25;
+ const readiness=Math.min(100,Math.round((answers.reduce((s,a)=>s+(a.level||1),0)/(answers.length*4))*100));
+ metrics.innerHTML=`<div class="metric"><strong>${complexity}%</strong><span>課題の複雑度</span></div>
+ <div class="metric"><strong>${urgency}%</strong><span>着手の緊急度</span></div>
+ <div class="metric"><strong>${readiness}%</strong><span>準備・実行段階</span></div>`;
+ insightList.innerHTML="";
+ const selected=flags.slice(0,6);
+ (selected.length?selected:["状況整理が必要","次の一歩を明確化"]).forEach(x=>{const li=document.createElement("li");li.textContent=x+"が今回の主要テーマとして表れています。";insightList.appendChild(li)});
+ todoList.innerHTML="";p.todos.forEach(x=>{const li=document.createElement("li");li.textContent=x;todoList.appendChild(li)});
+ notNow.textContent=p.notNow;ctaTitle.textContent=p.ctaTitle;ctaText.textContent=p.ctaText;siteLink.href=p.site;
+ comparisonCard.style.display=route==="unknown"?"block":"none";
+ if(route==="unknown"){
+   const names={startup:"起業伴走プログラム",life:"人生・承継プログラム",office:"社外社長室"};
+   const max=Math.max(...Object.values(unknownScores),1);scoreBars.innerHTML="";
+   Object.keys(names).forEach(k=>{const d=document.createElement("div");d.className="score-row";
+     d.innerHTML=`<div class="score-meta"><span>${names[k]}</span><strong>${unknownScores[k]} pt</strong></div>
+     <div class="score-track"><div class="score-fill" style="width:${Math.round(unknownScores[k]/max*100)}%"></div></div>`;
+     scoreBars.appendChild(d)});
+ }
+}
+startBtn.onclick=()=>show(routeScreen);
+routeBack.onclick=()=>show(intro);
+document.querySelectorAll(".route-btn").forEach(b=>b.onclick=()=>startRoute(b.dataset.route));
+questionBack.onclick=()=>{
+ if(current===0){show(routeScreen)}else{current--;answers=answers.slice(0,current);renderQuestion()}
+};
+restartBtn.onclick=()=>{reset();show(intro)};
+printBtn.onclick=()=>window.print();
+</script>
+<div class="version-mark">NOBUSAN NAVIGATOR Ver.1.0</div>
+</body>
+</html>
